@@ -56,7 +56,7 @@ class LinkedList {
      */
     find(callback) {
         const node = this.findNodeByCallback(callback);
-        return node?.node.value ?? undefined;
+        return node ? node.value : undefined;
     }
 
     /**
@@ -67,7 +67,7 @@ class LinkedList {
      */
     findIndex(callback) {
         const node = this.findNodeByCallback(callback);
-        return node?.index ?? -1;
+        return node ? node.index : -1;
     }
 
 
@@ -119,7 +119,7 @@ class LinkedList {
      */
     get(index) {
         const node = this.getNodeByIndex(index);
-        return node?.value ?? undefined;
+        return node ? node.value : undefined;
     }
 
     /**
@@ -158,7 +158,7 @@ class LinkedList {
      */
     indexOf(value) {
         const node = this.findNodeByValue(value);
-        return node?.index ?? -1;
+        return node ? node.index : -1;
     }
 
     /**

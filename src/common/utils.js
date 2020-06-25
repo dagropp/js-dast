@@ -1,4 +1,13 @@
 /**
+ * @fileOverview Implementation of useful data-structures in vanilla JavaScript.
+ * Linked list, stack, queue, sorted array and type safe extensions for these collections, plus array and set.
+ * @name js-dast
+ * @version 1.1
+ * @author Daniel Gropp
+ * @copyright 2020
+ */
+
+/**
  * Common types dictionary constant.
  * Keys: BOOLEAN, BIGINT, NUMBER, STRING, SYMBOL, UNDEFINED, NULL, OBJECT, ARRAY.
  * @type {Object}
@@ -42,7 +51,7 @@ export function getType(subject) {
  * @return {string|undefined} Array type, if array is of uniform type, undefined otherwise.
  */
 export function getArrayType(array) {
-    const type = getType(array[0]);
+    const type = array.type || getType(array[0]);
     return array.every(item => isType(item, type)) ? type : undefined;
 }
 

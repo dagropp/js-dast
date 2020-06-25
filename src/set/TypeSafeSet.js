@@ -1,4 +1,4 @@
-import {getArrayType, isInitialized, isType} from "../common/utils";
+import {getArrayType, getType, isInitialized, isType} from "../common/utils";
 import ErrorTypeSafe from "../error/ErrorTypeSafe";
 
 /**
@@ -24,9 +24,9 @@ class TypeSafeSet extends Set {
     }
 
     /**
-     * Appends a new element with a specified value to the end of a Set object.
-     * @param value {T} The value of the element to add to the Set object.
-     * @return {Set} The Set object.
+     * Appends a new element with a specified value to the end of a TypeSafeSet object.
+     * @param value {T} The value of the element to add to the TypeSafeSet object.
+     * @return {TypeSafeSet} The TypeSafeSet object.
      * @throws {ErrorTypeSafe} If the value of the property to set is not of type <T>.
      * @override
      */
@@ -35,6 +35,38 @@ class TypeSafeSet extends Set {
             return super.add(value);
         } else {
             throw new ErrorTypeSafe("assign", value, this.type);
+        }
+    }
+
+    /**
+     * Creates a new, shallow-copied TypeSafeSet instance from an array-like or iterable object.
+     * @param arrayLike {*} An array-like or iterable object to convert to TypeSafeSet.
+     * @return {TypeSafeSet} A new TypeSafeSet instance.
+     * @throws {ErrorTypeSafe} If some items are not of the same type.
+     * @override
+     */
+    static from(arrayLike) {
+        const type = getArrayType(arrayLike);
+        if (isInitialized(type)) {
+            return new TypeSafeSet(type, ...arrayLike);
+        } else {
+            throw new ErrorTypeSafe("initialize", arrayLike, getType(arrayLike[0]));
+        }
+    }
+
+    /**
+     * Creates a new TypeSafeSet instance from a variable number of arguments.
+     * @param items {*} Elements used to create the TypeSafeSet.
+     * @return {TypeSafeSet} A new TypeSafeSet instance.
+     * @throws {ErrorTypeSafe} If some items are not of the same type.
+     * @override
+     */
+    static of(...items) {
+        const type = getArrayType(items);
+        if (isInitialized(type)) {
+            return new TypeSafeSet(type, ...items);
+        } else {
+            throw new ErrorTypeSafe("initialize", items, getType(items[0]));
         }
     }
 }

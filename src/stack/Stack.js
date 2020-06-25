@@ -59,6 +59,14 @@ class Stack {
     }
 
     /**
+     * Calls LinkedList.prototype.forEach method. Executes a provided function once for each stack element.
+     * @param callback {Function} Function to execute on each element.
+     */
+    forEach(callback) {
+        this._list.forEach(callback);
+    }
+
+    /**
      * Returns a boolean indicating whether an element with the specified value exists in this stack.
      * @param value {*} The value to test for presence in the this stack.
      * @return {boolean} True if an element with the specified value exists in this stack, false otherwise.
@@ -119,6 +127,24 @@ class Stack {
      */
     [Symbol.iterator]() {
         return this._list[Symbol.iterator]();
+    }
+
+    /**
+     * Creates a new, shallow-copied stack instance from an array-like or iterable object.
+     * @param arrayLike {*} An array-like or iterable object to convert to stack.
+     * @return {Stack} A new stack instance.
+     */
+    static from(arrayLike) {
+        return new Stack(...arrayLike);
+    }
+
+    /**
+     * Creates a new stack instance from a variable number of arguments.
+     * @param items {*} Elements used to create the stack.
+     * @return {Stack} A new stack instance.
+     */
+    static of(...items) {
+        return new Stack(...items);
     }
 }
 

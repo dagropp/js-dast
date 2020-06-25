@@ -83,6 +83,14 @@ class Queue {
     }
 
     /**
+     * Calls LinkedList.prototype.forEach method. Executes a provided function once for each queue element.
+     * @param callback {Function} Function to execute on each element.
+     */
+    forEach(callback) {
+        this._list.forEach(callback);
+    }
+
+    /**
      * Returns a boolean indicating whether an element with the specified value exists in this queue.
      * @param value {*} The value to test for presence in the this queue.
      * @return {boolean} True if an element with the specified value exists in this queue, false otherwise.
@@ -119,6 +127,24 @@ class Queue {
      */
     [Symbol.iterator]() {
         return this._list[Symbol.iterator]();
+    }
+
+    /**
+     * Creates a new, shallow-copied queue instance from an array-like or iterable object.
+     * @param arrayLike {*} An array-like or iterable object to convert to queue.
+     * @return {Queue} A new queue instance.
+     */
+    static from(arrayLike) {
+        return new Queue(...arrayLike);
+    }
+
+    /**
+     * Creates a new queue instance from a variable number of arguments.
+     * @param items {*} Elements used to create the queue.
+     * @return {Queue} A new queue instance.
+     */
+    static of(...items) {
+        return new Queue(...items);
     }
 }
 
